@@ -1,0 +1,29 @@
+{
+        "vehicle": {
+                "entity_key": "v",
+                "index": "idx:vehicles",
+                "ttl": 600,
+                "naming_keys" : ["licence_plate", "company_id", "trip_id", "timestamp"],
+                "data_fields" : [
+                        "heading", "heading_accuracy", "location", "occupancy_status", "congestion_level", "start_time", "start_date", "speed", "odometer", "current_status",
+                        "speed_accuracy", "datetime", "user_id", "route_id", "accuracy", "altitude", "altitude_accuracy", "person_id", "entity_type", "agency_id", "agency_timezone", "stop_id", "stop_sequence"
+                ],
+                "create_index_query": "FT.CREATE idx:vehicles ON JSON SCHEMA $.timestamp AS timestamp NUMERIC SORTABLE $.location AS location GEO $.company_id AS company_id TEXT $.person_id AS person_id TEXT $.trip_id AS trip_id TEXT $.route_id AS route_id TEXT $.agency_id AS agency_id TEXT $.licence_plate AS licence_plate TEXT $.speed AS speed NUMERIC $.speed_accuracy AS speed_accuracy NUMERIC $.heading AS heading NUMERIC $.entity_type AS entity_type TAG $.occupancy_status AS occupancy_status TAG $.congestion_level AS congestion_level TAG"
+        },
+        "trip_update": {
+                "entity_key": "t",
+                "index": "idx:trip_updates",
+                "ttl": 600,
+                "naming_keys" : ["company_id", "trip_id", "timestamp"],
+                "data_fields" : ["stop_times_predictions", "start_time", "start_date", "route_id", "entity_type"],
+                "create_index_query": "FT.CREATE idx:trip_updates ON JSON SCHEMA $.timestamp AS timestamp NUMERIC SORTABLE $.company_id AS company_id TEXT $.trip_id AS trip_id TEXT $.start_time AS start_time TEXT $.start_date AS start_date TEXT $.route_id AS route_id TEXT $.agency_id AS agency_id TEXT $.entity_type AS entity_type TAG"
+        },
+        "alert": {
+                "entity_key": "a",
+                "index": "idx:alerts",
+                "ttl": 0,
+                "naming_keys" : ["company_id", "timestamp"],
+                "data_fields" : ["time_periods", "selected_entities", "cause", "effect", "url_data", "header_text_data", "description_text_data"],
+                "create_index_query": "FT.CREATE idx:alerts ON JSON SCHEMA $.timestamp AS timestamp NUMERIC SORTABLE $.company_id AS company_id TEXT $.cause AS cause TEXT $.effect AS effect TEXT $.entity_type AS entity_type TAG"
+        }
+}
