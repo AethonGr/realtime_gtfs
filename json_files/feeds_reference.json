@@ -5,7 +5,7 @@
                 "ttl": 7200,
                 "naming_keys" : ["company_id", "timestamp"],
                 "data_fields" : ["feed", "trip_id", "route_id", "agency_id"],
-                "create_index_query": "FT.CREATE idx:avl ON JSON SCHEMA $.timestamp AS timestamp NUMERIC SORTABLE $.company_id AS company_id TEXT $.trip_ids AS trip_ids TEXT $.route_ids AS route_ids TEXT $.agency_ids AS agency_ids TEXT $.feed_type AS feed_type TAG"
+                "create_index_query": "FT.CREATE idx:avl ON JSON SCHEMA $.timestamp AS timestamp NUMERIC SORTABLE $.company_id AS company_id TEXT $.trip_ids AS trip_ids TEXT $.route_ids AS route_ids TEXT $.agency_ids AS agency_ids TEXT $.feed_type AS feed_type TAG $.staging_data_ids AS staging_data_ids TEXT "
         },
         "service_alerts": {
                 "feed_key": "a",
@@ -22,6 +22,6 @@
                 "ttl": 7200,
                 "naming_keys" : ["company_id", "timestamp"],
                 "data_fields" : ["feed", "trip_id", "route_id", "agency_id"],
-                "create_index_query": "FT.CREATE idx:trip_updates ON JSON SCHEMA $.timestamp AS timestamp NUMERIC SORTABLE $.company_id AS company_id TEXT $.trip_ids AS trip_ids TEXT $.route_ids AS route_ids TEXT $.agency_ids AS agency_ids TEXT $.feed_type AS feed_type TAG"
+                "create_index_query": "FT.CREATE idx:trip_updates ON JSON SCHEMA $.timestamp AS timestamp NUMERIC SORTABLE $.company_id AS company_id TEXT $.trip_ids AS trip_ids TEXT $.route_ids AS route_ids TEXT $.agency_ids AS agency_ids TEXT $.feed_type AS feed_type TAG $.staging_data_ids AS staging_data_ids TEXT "
         }
 }

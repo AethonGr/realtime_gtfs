@@ -30,10 +30,30 @@ class RealTimeGTFSConstructor:
 			if field in entity_data:
 				self.metadata[field + 's'].append(entity_data[field])
 
+	def __collect_staging_data_metadata(self, data_of_entities: list):
+		"""Collects the required metadata as specified in the constructor for the given feed_type, and the provided entity_data dictionary by updating the class variable 'metadata'
+		:param dict data_of_entities: Dictionary in the structure that each different Feed in gtfs realtime is structured. More info available in the gtfs reference
+		"""
+
+		# Collecting all the metadata
+		ids_collected = ' '.join([document_used['id'] for document_used in data_of_entities])
+
+		self.metadata['staging_data_ids'] = ids_collected
+
+
 	def __finalize_metadata(self):
 		"""Updates all stored metadata id(s) by merging them in a continuous string space seperated, since this is needed in order to query the metadata in the NOSQL database."""
 		for data in self.metadata:
-			self.metadata[data] = ' '.join([str(x) for x in self.metadata[data]])
+
+			# Converting all ids to strings
+			ids_as_strings = [str(x) for x in self.metadata[data]]
+
+			# Removing duplicates
+			list_of_set_of_ids = list(set(ids_as_strings))
+
+			# Joining the ids as Redis requires
+			self.metadata[data] = ' '.join(list_of_set_of_ids)
+
 
 	def generate_avl_feed(self, data_of_entities: list, is_differential: bool = False) -> FeedMessage | None:
 		"""Populates VehiclePositionEntity objects with the provided data and appends them in the message.
@@ -55,6 +75,9 @@ class RealTimeGTFSConstructor:
 
 		# Finalizing the metadata
 		self.__finalize_metadata()
+
+		# Collecting staging data metadata
+		self.__collect_staging_data_metadata(data_of_entities=data_of_entities)
 
 		return self.message
 
@@ -80,6 +103,9 @@ class RealTimeGTFSConstructor:
 
 		# Finalizing the metadata
 		self.__finalize_metadata()
+
+		# Collecting staging data metadata
+		self.__collect_staging_data_metadata(data_of_entities=[x['entity_data'] for x in data_of_entities])
 
 		return self.message
 
