@@ -3,7 +3,7 @@
                 "entity_key": "v",
                 "index": "idx:vehicles",
                 "ttl": 600,
-                "naming_keys" : ["licence_plate", "company_id", "trip_id", "timestamp"],
+                "naming_keys" : ["company_id", "trip_id", "licence_plate", "timestamp"],
                 "data_fields" : [
                         "heading", "heading_accuracy", "location", "occupancy_status", "congestion_level", "start_time", "start_date", "speed", "odometer", "current_status",
                         "speed_accuracy", "datetime", "user_id", "route_id", "accuracy", "altitude", "altitude_accuracy", "person_id", "entity_type", "agency_id", "agency_timezone", "stop_id", "stop_sequence"
