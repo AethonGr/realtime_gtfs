@@ -192,8 +192,13 @@ class TripUpdateEntity(RealTimeEntity):
 		stop_time_update = gtfs_realtime_pb2.TripUpdate().StopTimeUpdate()
 		stop_time_update.stop_sequence = stop_time_data['stop_sequence']
 		stop_time_update.stop_id = str(stop_time_data['stop_id'])
-		stop_time_update.arrival.delay = stop_time_data['arrival'].seconds
-		stop_time_update.departure.delay  = stop_time_data['departure'].seconds
+		# Adding the delay
+		stop_time_update.arrival.delay = stop_time_data['delay']
+		stop_time_update.departure.delay  = stop_time_data['delay']
+
+		# Adding the time taking into account the delay
+		# stop_time_update.arrival.time = int(stop_time_data['arrival'].timestamp())
+		# stop_time_update.departure.time = int(stop_time_data['arrival'].timestamp())
 		return stop_time_update
 
 

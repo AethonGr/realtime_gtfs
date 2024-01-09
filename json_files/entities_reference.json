@@ -6,8 +6,9 @@
                 "naming_keys" : ["company_id", "trip_id", "licence_plate", "timestamp"],
                 "data_fields" : [
                         "heading", "heading_accuracy", "location", "occupancy_status", "congestion_level", "start_time", "start_date", "speed", "odometer", "current_status",
-                        "speed_accuracy", "datetime", "user_id", "route_id", "accuracy", "altitude", "altitude_accuracy", "person_id", "entity_type", "agency_id", "agency_timezone", "stop_id", "stop_sequence"
+                        "speed_accuracy", "datetime", "user_id", "route_id", "accuracy", "altitude", "altitude_accuracy", "person_id", "entity_type", "agency_id", "agency_timezone", "stop_id", "stop_sequence", "acceleration", "running_average_acceleration", "running_average_speed", "no_of_observations"
                 ],
+
                 "create_index_query": "FT.CREATE idx:vehicles ON JSON SCHEMA $.timestamp AS timestamp NUMERIC SORTABLE $.location AS location GEO $.company_id AS company_id TEXT $.person_id AS person_id TEXT $.trip_id AS trip_id TEXT $.route_id AS route_id TEXT $.agency_id AS agency_id TEXT $.licence_plate AS licence_plate TEXT $.speed AS speed NUMERIC $.speed_accuracy AS speed_accuracy NUMERIC $.heading AS heading NUMERIC $.entity_type AS entity_type TAG $.occupancy_status AS occupancy_status TAG $.congestion_level AS congestion_level TAG"
         },
         "trip_update": {
